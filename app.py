@@ -6,14 +6,14 @@ import pdfplumber
 import re
 import os
 
-# 1. Page Configuration
+
 st.set_page_config(
     page_title="MSFT FY25 | Research Analytics",
     page_icon="🔍",
     layout="wide"
 )
 
-# 2. Researcher Theme Styling
+
 st.markdown("""
     <style>
     .main { background-color: #f4f7f9; }
@@ -40,7 +40,7 @@ st.markdown("""
 
 @st.cache_data
 def load_data():
-    # --- FIXED PATH LOGIC FOR HOSTING ---
+    
     base_dir = os.path.dirname(os.path.abspath(__file__))
     file_name = "2025_AnnualReport1.pdf" 
     file_path = os.path.join(base_dir, file_name)
@@ -71,20 +71,20 @@ def load_data():
     except Exception as e: 
         return None, str(e)
 
-# --- Top Header ---
+
 st.markdown('<div class="report-header"><h1> Microsoft Corp: Financial Research Dashboard</h1><p>Academic Review of FY2025 Performance Metrics</p></div>', unsafe_allow_html=True)
 
 data, error_msg = load_data()
 
 if data:
-    # 4. Research Metrics (KPIS)
+    
     c1, c2, c3, c4 = st.columns(4)
     with c1: st.metric("Total Revenue", f"${data['Revenue']}B", "15% YoY")
     with c2: st.metric("Operating Margin", f"{data['Margin']}%", "Efficiency")
     with c3: st.metric("Azure Segment", f"${data['Azure']}B", "34% Growth")
     with c4: st.metric("Cloud Mix", f"{data['AzureMix']}%", "Core Driver")
 
-    # 5. Analyst Perspective
+    
     st.markdown(f'''
     <div class="research-note">
         <b>Brief:</b> FY2025 analysis confirms Microsoft's pivot to an AI-first cloud architecture. 
@@ -94,7 +94,7 @@ if data:
     ''', unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # 6. Visualization Strategy
+    
     st.subheader(" Performance Snapshot")
     col1, col2 = st.columns(2)
     
@@ -123,7 +123,7 @@ if data:
         fig_pie.update_layout(height=400, margin=dict(t=0, b=0))
         st.plotly_chart(fig_pie, use_container_width=True)
 
-    # 7. Strategic Deep-Dive
+    
     st.markdown("---")
     st.subheader(" Strategic Trends & Data Grid")
     t1, t2 = st.tabs(["Trend Analysis", "Academic Data Grid"])
@@ -145,7 +145,7 @@ if data:
             "Status": ["Record High", "Healthy", "Market Leader", "Consistent"]
         }), use_container_width=True, hide_index=True)
 
-    # Sidebar
+    
     with st.sidebar:
         st.image("https://img.icons8.com/color/144/microsoft.png", width=60)
         st.header("Research Context")
@@ -153,10 +153,10 @@ if data:
         st.write("**Focus:** Cloud Economics")
         st.write("**Version:** 1.0")
         st.markdown("---")
-        # Sidebar Updates: Removed Path Message and Added Link
         st.info("✅**Source Verification**")
         st.markdown("[Official Microsoft 2025 Annual Report](https://www.microsoft.com/en-us/investor/annual-reports.aspx)")
         st.caption("Extracted and analyzed for academic review.")
 
 else:
+
     st.error(f"⚠️ Data Source Error: {error_msg}")
